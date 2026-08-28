@@ -11,22 +11,22 @@ document.head.appendChild(Object.assign(document.createElement('style'), { textC
 '.p{color:#fff;background:#d92e74;border-color:#d92e74}.p:hover:not(:disabled){color:#fff;background:#e63d81}' +
 'h1{font-size:clamp(30px,9vw,56px);color:#f2307f;text-shadow:0 3px 0 #fff,0 6px 0 #f3b9d3;letter-spacing:.04em}' +
 '.rbw{width:150px;height:6px;border-radius:3px;background:linear-gradient(90deg,#ff2571,#ff9725,#ffe325,#5eff25,#2571ff,#5f25ff)}' +
-'.tag{color:#a94a70;text-align:center;max-width:30ch}.mini{font-size:13px;color:#ad5378}' +
+'.tag{color:#a94a70;text-align:center}.mini{font-size:13px;color:#ad5378}' +
 '#vtitle{justify-content:center}#vtitle>*{position:relative}' +
 '#d{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,92vw);height:min(560px,92vw);opacity:.35;pointer-events:none}' +
 '.menu{display:flex;flex-direction:column;gap:8px;width:min(280px,90vw)}.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}' +
 '#stage{flex:1;align-self:stretch;min-height:0;position:relative}#b{display:block;cursor:pointer}' +
 '#hud{display:flex;gap:12px;align-items:center;font-size:14px;color:#a94a70;flex-wrap:wrap;justify-content:center}'+
-'#chips i{display:inline-block;width:12px;height:12px;transform:rotate(45deg);border:2.5px solid;border-radius:3px;margin:0 3px;opacity:.85;vertical-align:middle}' +
+'#chips i{display:inline-block;width:12px;height:12px;transform:rotate(45deg);border:2.5px solid;border-radius:3px;margin:0 3px;opacity:.85}' +
 '#lvs{flex:1;overflow-y:auto;align-self:stretch;max-width:640px;margin:0 auto;width:100%}' +
 '.chh{margin:12px 0 6px}' +
 '.lvg{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:7px}' +
-'.lv{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px;font-size:16px}' +
+'.lv{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px}' +
 '.lv i{font-style:normal;font-size:9px;color:#e8b7cc}.lv.cl{border-color:#f04f92}.lv.cl i{color:#f0a022}' +
 '#ov,#how{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(253,236,243,.85);z-index:9}' +
 '.card{background:#fff;border:2px solid #f6cdde;border-radius:18px;padding:22px;text-align:center;max-width:92vw}' +
 '.card h2{color:#f2307f}.card p{font-weight:400;color:#a94a70;font-size:14px;margin:8px 0;text-align:left}.card p b{color:#c92e6d}' +
-'#ovStars{font-size:30px;color:#f0a022;letter-spacing:4px;margin:6px 0}' +
+'#ovStars{font-size:30px;color:#f0a022;margin:6px 0}' +
 '#toast{position:absolute;left:50%;bottom:70px;transform:translateX(-50%);background:#fff;border:2px solid #f04f92;border-radius:999px;padding:7px 16px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}'
 }));
 document.body.innerHTML =
@@ -118,9 +118,7 @@ var sSpin = function () { blip(420, 250, .085, 'triangle', .09); };
 var sNo = function () { blip(120, 0, .1, 'sawtooth', .03); };
 var sLit = function () { blip(784, 0, .3, 'sine', .09); blip(1176, 0, .26, 'sine', .04, .015); };
 var sWin = function () { [523, 659, 784, 1047].forEach(function (f, i) { blip(f, 0, .4, 'sine', .08, i * .085); }); };
-var sCrunch = function () {
-  blip(170, 78, .09, 'sawtooth', .13); blip(1050, 0, .028, 'square', .045);
-};
+var sCrunch = function () { blip(170, 78, .09, 'sawtooth', .13); };
 /* cake eating: every cake gets eaten — unicorns split the work and tour their share */
 var FH = .8, FW = .6, FB = .22, _bcv = null;   /* hearts / walk / per-bite */
 function planFeast(g) {
@@ -512,15 +510,20 @@ function drawCellSlim(c2, g, i, c, cx, cy, cs, ang, lit, t, winAt) {
       });
       c2.restore();
       break;
-    case T_WALL:
-      c2.fillStyle = '#b97770';
-      c2.fillRect(cx - 20 * u, cy - 20 * u, 40 * u, 40 * u);
-      c2.strokeStyle = '#8f544e'; c2.lineWidth = 2 * u;
-      c2.strokeRect(cx - 20 * u, cy - 20 * u, 40 * u, 40 * u);
-      c2.fillStyle = '#d9a49b';
-      for (k = 0; k < 4; k++)
-        c2.fillRect(cx - 14 * u + (k % 2) * 16 * u, cy - 12 * u + ((k / 2) | 0) * 16 * u, 4 * u, 2 * u);
+    case T_WALL: {
+      /* pixel choco bar — same pixel grid as the sprites (1px = u) */
+      var P = (x, y, w2, h2, col) => {
+        c2.fillStyle = col;
+        c2.fillRect(cx + (x - 24) * u, cy + (y - 24) * u, w2 * u, h2 * u);
+      };
+      P(9, 7, 30, 2, '#8f544e'); P(9, 39, 30, 2, '#8f544e');
+      P(7, 9, 2, 30, '#8f544e'); P(39, 9, 2, 30, '#8f544e');
+      P(9, 9, 30, 30, '#b97770');
+      P(9, 9, 30, 2, '#d9a49b'); P(9, 9, 2, 30, '#d9a49b');
+      P(23, 9, 2, 30, '#8f544e'); P(9, 23, 30, 2, '#8f544e');
+      [[12, 12], [26, 12], [12, 26], [26, 26]].forEach(st => P(st[0], st[1], 4, 2, '#d9a49b'));
       break;
+    }
     case T_EMIT: {
       var feasting = false;
       if (winAt && c._legs) {
