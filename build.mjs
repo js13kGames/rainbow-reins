@@ -6,6 +6,11 @@ import zlib from 'node:zlib';
 import { execSync } from 'node:child_process';
 
 const read = p => fs.readFileSync(p, 'utf8');
+fs.mkdirSync('dist', { recursive: true });
+if (!fs.existsSync('dist/pix.js')) {
+  console.error('dist/pix.js 없음 — 먼저 node pack.mjs 를 실행하세요');
+  process.exit(1);
+}
 
 /* ── 엔진: ENGINE 구간만 + 무한/일일 블록 제거 ── */
 let eng = read('src/engine.js')

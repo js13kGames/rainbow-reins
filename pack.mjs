@@ -33,6 +33,8 @@ function decodePNG(path) {
   return { w, h, px };
 }
 
+fs.mkdirSync('dist', { recursive: true });   /* fresh clone 에는 dist 가 없다 */
+
 const ani = decodePNG('assets/Uni_Ani.png'), cake = decodePNG('assets/Uni_Cake.png');
 const uf = n => ({ sx: (((n - 1) / 3) | 0) * 50, sy: ((n - 1) % 3) * 50 });
 const KEEP = [2, 3, 4, 10, 11, 12, 14];        /* fire×3, found×2, walk×2 */

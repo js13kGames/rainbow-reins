@@ -21,6 +21,10 @@ node pack.mjs    # sprites → dist/pix.js  (indexed palette, packed as a string
 node build.mjs   # bundle → minify (esbuild) → pack (roadroller) → rainbow-reins.zip
 ```
 
+Needs Node 18+ and network access on first run (esbuild and roadroller are
+fetched via npx). Roadroller runs a randomized search, so the zip size can
+wobble by a byte or two between builds — the size gate catches anything over.
+
 The build fails loudly if the zip goes over 13,312 bytes, and smoke-tests the
 level generator (all 60 levels must be unsolved-at-start and solvable) before
 packing.
