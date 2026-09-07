@@ -42,5 +42,5 @@ assets/         pixel art (drawn in Aseprite)
 
 ## Credits
 
-A **Yellow Jasmine** game. Pixel art & music made in-house.
+A **Yellow Jasmin** game. Pixel art & music made in-house.
 Everything else: vanilla JS, no libraries (esbuild + roadroller at build time only).

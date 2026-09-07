@@ -35,7 +35,7 @@ document.body.innerHTML =
 '<div class="tag">Bounce the beam, light every cake.</div>' +
 '<div class="menu"><button class="p" id="bPlay">Play</button><button id="bLvls">Levels</button><button id="bHow">How to play</button>' +
 '<div class="row"><button id="bMus" style="flex:1"></button><button id="bSnd" style="flex:1"></button></div></div>' +
-'<div class="mini" id="tStars"></div><div class="mini">Yellow Jasmine &middot; js13k 2026</div></div>' +
+'<div class="mini" id="tStars"></div><div class="mini">Yellow Jasmin &middot; js13k 2026</div></div>' +
 '<div class="v" id="vlevels"><div class="row" style="align-self:stretch"><button id="bBack">&larr; Back</button></div><div id="lvs"></div></div>' +
 '<div class="v" id="vgame"><div id="hud"><button id="gBack">&larr;</button>' +
 '<span>lv <b id="hLv"></b></span><span>moves <b id="hMv"></b></span><span>par <b id="hPar"></b></span>' +
