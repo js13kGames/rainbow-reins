@@ -37,7 +37,7 @@ src/game.js     rendering, input, audio, UI (markup lives in JS for the packer)
 src/index.html  thin shell
 pack.mjs        sprite packer (PNG → indexed string)
 build.mjs       build + size gate
-assets/         pixel art (drawn in Aseprite)
+assets/         pixel art (unicorn animation + cake sprites)
 ```
 
 ## Credits
