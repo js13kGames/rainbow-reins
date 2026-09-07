@@ -48,7 +48,7 @@ document.body.innerHTML =
 '<p><b>Tap a plate to spin it.</b> Plates bend the beam 90&deg;, double plates split it.</p>' +
 '<p><b>Light every cake with its exact plate color.</b> Beams pass through cakes; crossing beams mix &mdash; red+green=yellow, all three=rainbow.</p>' +
 '<p><b>Donuts</b> pass one color. <b>Stars</b> cycle r&rarr;g&rarr;b. <b>Choco blocks</b> eat beams.</p>' +
-'<p>Beat par for &starf;&starf;&starf;. Hints cap you at &starf;&starf;.</p>' +
+'<p>Match par for &starf;&starf;&starf;. Hints cap you at &starf;&starf;.</p>' +
 '<div class="row"><button class="p" id="bHowX">Got it</button></div></div></div>';
 
 /* ---------- English display names (engine ships Korean labels) ---------- */
@@ -104,8 +104,7 @@ function actx() {
   return AC || null;
 }
 function blip(f, f2, d, type, g, at) {
-  if (!save.snd) return;
-  var c = actx(); if (!c) return;
+  var c = actx(); if (!save.snd || !c) return;
   var t = c.currentTime + (at || 0), o = c.createOscillator(), v = c.createGain();
   o.type = type || 'sine'; o.frequency.setValueAtTime(f, t);
   if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d);
@@ -335,6 +334,7 @@ function win() {
     setTimeout(function () { if (S.done) sCrunch(); }, ct * 1000);
   });
   setTimeout(function () {
+    if (!S.done) return;
     $('#ovSub').textContent = 'lv ' + S.id;
     $('#ovStars').textContent = '★'.repeat(st) + '☆'.repeat(3 - st);
     $('#ovStat').textContent = S.moves + ' moves · par ' + S.lv.par + ' · ★ ' + stars();
